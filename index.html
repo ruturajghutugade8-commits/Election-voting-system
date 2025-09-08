@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Your Favorite Candidate</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">तासगाव-कवठे महांकाळ मतदार संघ</h1>
+        
+        <div class="candidates">
+            <div class="candidate" id="rohit">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.dBMLGvZdIzxY4kswdNf1CwAAAA&pid=Api&P=0&h=180">
+                <h2>Rohit R.R. Aba Patil</h2>
+                <button onclick="vote('rohit')"> 🎷 Vote</button>
+            </div>
+
+            <div class="candidate" id="sanjay">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.qHbeYXcjy-Nva7U3BsCuSQHaJk&pid=Api&P=0&h=180" alt="Sanjay (Kaka) Patil">
+                <h2>Sanjay  (Kaka)  Patil</h2>
+                <button onclick="vote('sanjay')"> ⏰ Vote</button>
+            </div>
+
+            <div class="candidate" id="vaibhav">
+                <img src="https://results.eci.gov.in/uploads1/candprofile/E27/2024/AC/S13/VAIBH-2024-20241104093457.jpg" alt="Vaibhav Ganesh Kulkarni">
+                <h2>Vaibhav Kulkarni</h2>
+                <button onclick="vote('vaibhav')"> 🕯 Vote</button>
+            </div>
+
+            <div class="candidate" id="nota">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.IMEm54zFYb_DavpTYXRQ5AHaEK&pid=Api&P=0&h=180" alt="None of the Above">
+                <h2>None of the Above</h2>
+                <button onclick="vote('nota')"> 💸 Vote</button>
+            </div>
+            <div class="candidate" id="athavale">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.foyLdG1fnRawc99bHyyn2QAAAA&pid=Api&P=0&h=180" alt="ATHAVALE DATTATRAY BANDU">
+                <h2>ATHAVALE DATTATRAY BANDU</h2>
+                <button onclick="vote('athavale')">Vote</button>
+            </div>
+            <div class="candidate" id="dattatry">
+                <img src="https://myneta.info/images_candidate/mynetai_ews5Maharashtra2024/36a29c26787aca8a429c0e113bb2ad132286bae2.jpg" alt="Dattatry Bhimarao Bamane">
+                <h2>Dattatry Bhimarao Bamane</h2>
+                <button onclick="vote('dattatry')">Vote</button>
+            </div>
+            <div class="candidate" id="dodmani">
+                <img src="https://myneta.info/images_candidate/mynetai_ews5Maharashtra2024/c7f43810d1d00518a1231a37552aa016a7503b5b.jpg" alt="Dodmani Mahadev Bhimarao">
+                <h2>Dodmani Mahadev Bhimarao</h2>
+                <button onclick="vote('dodmani')">Vote</button>
+            </div>
+            <div class="candidate" id="kolekar">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.iav8vbZqTItWMbYqSGhvVQHaJ8&pid=Api&P=0&h=180" alt="Dr. Kolekar Shashikant Duryodhan">
+                <h2>Dr. Kolekar Shashikant Duryodhan</h2>
+                <button onclick="vote('kolekar')">Vote</button>
+            </div>
+        <div class="candidate"id="jadhav">
+            <img src="cr7.jpg" alt="ronaldo">
+            <h2>ronaldo</h2>
+            <button onclick="vote('ronaldo')">vote</button>
+
+        </div>
+
+        </div>
+    </div>
+
+    <script>
+        function vote(candidate) {
+            let voterID = sessionStorage.getItem("voterID");
+
+            if (!voterID) {
+                alert("You must log in first!");
+                window.location.href = "login.html";
+                return;
+            }
+
+            let voted = localStorage.getItem(voterID);
+            if (voted) {
+                alert("You have already voted!");
+                return;
+            }
+
+            let votes = JSON.parse(localStorage.getItem("votes")) || { rohit: 0, sanjay: 0, vaibhav: 0, nota: 0, athavale: 0, dattatry: 0, dodmani: 0, kolekar: 0 };
+            votes[candidate]++;
+            localStorage.setItem("votes", JSON.stringify(votes));
+
+            // Mark the voter as voted
+            localStorage.setItem(voterID, "voted");
+
+            alert("Vote successfully cast. Your vote is stored!");
+        }
+    </script>
+</body>
+</html>

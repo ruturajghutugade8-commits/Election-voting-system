@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="password-container" id="password-container">
+        <h1>Admin Login</h1>
+        <input type="password" id="admin-password" placeholder="Enter Admin Password">
+        <button onclick="checkAdmin()">Submit</button>
+        <p id="error-message" class="error-message"></p>
+    </div>
+
+    <div class="container hidden" id="results-container">
+        <h1 class="title">Vote Results</h1>
+        <ul>
+            <li>Rohit Suman R.R. Aba Patil: <span id="result-rohit"></span></li>
+            <li>Sanjay (Kaka) Patil: <span id="result-sanjay"></span></li>
+            <li>Vaibhav Kulkarni: <span id="result-vaibhav"></span></li>
+            <li>None of the Above (NOTA): <span id="result-nota"></span></li>
+            <li>ATHAVALE DATTATRAY BANDU: <span id="result-athavale"></span></li>
+            <li>Dattatry Bhimarao Bamane: <span id="result-dattatry"></span></li>
+            <li>Dodmani Mahadev Bhimarao: <span id="result-dodmani"></span></li>
+            <li>Dr. Kolekar Shashikant Duryodhan: <span id="result-kolekar"></span></li>
+        </ul>
+        <button onclick="clearVotes()">Clear Votes</button>
+    </div>
+
+    <script>
+        // Check admin password and show results
+        function checkAdmin() {
+            let enteredPassword = document.getElementById("admin-password").value;
+            if (enteredPassword === "1234567") {
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("results-container").classList.remove("hidden");
+                loadResults();
+            } else {
+                document.getElementById("error-message").textContent = "Incorrect Password!";
+            }
+        }
+
+        // Load the results from localStorage and display them
+        function loadResults() {
+            let votes = JSON.parse(localStorage.getItem("votes")) || { 
+                rohit: 0, sanjay: 0, vaibhav: 0, nota: 0, 
+                athavale: 0, dattatry: 0, dodmani: 0, kolekar: 0 
+            };
+
+            document.getElementById("result-rohit").textContent = votes.rohit || 0;
+            document.getElementById("result-sanjay").textContent = votes.sanjay || 0;
+            document.getElementById("result-vaibhav").textContent = votes.vaibhav || 0;
+            document.getElementById("result-nota").textContent = votes.nota || 0;
+            document.getElementById("result-athavale").textContent = votes.athavale || 0;
+            document.getElementById("result-dattatry").textContent = votes.dattatry || 0;
+            document.getElementById("result-dodmani").textContent = votes.dodmani || 0;
+            document.getElementById("result-kolekar").textContent = votes.kolekar || 0;
+        }
+
+        // Clear the votes from localStorage and reset the results
+        function clearVotes() {
+            const confirmClear = confirm("Are you sure you want to clear all votes? This action cannot be undone.");
+            if (confirmClear) {
+                // Remove vote data
+                localStorage.removeItem("votes");
+
+                // Reset all result display elements to 0
+                document.getElementById("result-rohit").textContent = 0;
+                document.getElementById("result-sanjay").textContent = 0;
+                document.getElementById("result-vaibhav").textContent = 0;
+                document.getElementById("result-nota").textContent = 0;
+                document.getElementById("result-athavale").textContent = 0;
+                document.getElementById("result-dattatry").textContent = 0;
+                document.getElementById("result-dodmani").textContent = 0;
+                document.getElementById("result-kolekar").textContent = 0;
+
+                alert("All votes have been cleared.");
+            }
+        }
+    </script>
+</body>
+</html>
